@@ -7,14 +7,10 @@ import { getPayload } from 'payload'
 import { importConfig } from 'payload/node'
 
 async function run() {
-  const awaitedConfig = await importConfig('../../payload.config.ts')
+  const awaitedConfig = await importConfig('./payload.config.js')
   const payload = await getPayload({ config: awaitedConfig })
 
-  const pages = await payload.find({
-    collection: 'pages',
-  })
-
-  console.log(pages)
+  await payload.db.migrate()
   process.exit(0)
 }
 
